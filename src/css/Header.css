@@ -1,0 +1,79 @@
+.header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #131921;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header_logo {
+  width: 100px;
+  object-fit: contain;
+  margin: 0 20px;
+  margin-top: 12px;
+}
+
+.header_searchIcon {
+  padding: 5px;
+  background-color: #cd9042;
+}
+
+.header_input {
+  border: 0;
+  flex: 1;
+}
+
+.header_input:focus {
+  outline: 1px #cd9042;
+}
+
+.header_search {
+  display: flex;
+  flex: 1;
+  border-radius: 24px;
+  padding: 50px;
+}
+
+.header_option {
+  display: flex;
+  color: white;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.header_nav {
+  margin-left: 5px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header_optionLineOne {
+  font-size: 11 px;
+}
+
+.header_optionLineTwo {
+  font-size: 14px;
+  font-weight: 8 00;
+}
+
+.shoppingCartIcon {
+  padding: 5px;
+  color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.header_shoppingBasket_count {
+  color: white;
+  padding: 5px;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+.header_shppingBasket {
+  display: flex;
+  align-items: center;
+}
