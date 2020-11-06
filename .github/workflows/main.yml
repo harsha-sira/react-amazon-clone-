@@ -18,7 +18,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deploy to Firebase
-        uses: firebase deploy --token 1//0gxUXM9MDiIvzCgYIARAAGBASNwF-L9Irfwtx7FY7CMK-fqPLEp9Zx1B4qk9loINiolqji1-3wwR2SS-bLBhmxnxqNmit0IiXCC0 --only hosting --non-interactive
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
