@@ -1,22 +1,27 @@
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Checkout from "./components/Checkout";
+import Login from "./components/Login";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
         <Switch>
-          <Router path="/checkout">
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/checkout">
+            <Header />
             <Checkout />
-          </Router>
+          </Route>
           {/* default one should be last route */}
-          <Router path="/">
+          <Route path="/">
+            <Header />
             <Home />
-          </Router>
+          </Route>
         </Switch>
       </div>
     </Router>
