@@ -1,4 +1,3 @@
-import { userInfo } from "os";
 import React from "react";
 import { useStateValue } from "../common/StateProvider";
 import "../css/Checkout.css";
@@ -18,16 +17,19 @@ function Checkout() {
         />
 
         <div>
-          <h3>Hello {user?.email}</h3>
+          <h4 className="checkout_welcome">
+            Hello {user === null ? "Guest" : user?.email}
+          </h4>
           <h2 className="checkout_title">Your Shopping Basket</h2>
 
-          {basket.map((item) => (
+          {basket.map((item, index) => (
             <CheckoutProduct
               id={item.id}
               price={item.price}
               image={item.image}
               starRating={item.starRating}
               description={item.description}
+              key={index}
             />
           ))}
         </div>

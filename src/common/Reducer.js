@@ -6,6 +6,11 @@ export const initialState = {
 export const getBasketTotal = (basket) =>
   basket?.reduce((amount, item) => item.price + amount, 0);
 
+export const getBasketTotalforPayment = (basket) => {
+  const total = basket?.reduce((amount, item) => item.price + amount, 0);
+  return Math.round(total * 100);
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET":
@@ -30,9 +35,15 @@ const reducer = (state, action) => {
       };
 
     case "SET_USER":
+      if (action.user === null) console.log("DEBUG: setuser ->", action.user);
       return {
         ...state,
         user: action.user,
+      };
+    case "EMPTY_BASKET":
+      return {
+        ...state,
+        basket: [],
       };
     default:
       return state;
