@@ -3,15 +3,18 @@ import "../css/Header.css";
 
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "../common/StateProvider";
 import { auth } from "../firebase/firebaseConfig";
 
 function Header() {
   const [{ basket, user }] = useStateValue();
+  const history = useHistory();
+
   const handleAuthentication = () => {
     if (user) {
       auth.signOut();
+      history.replace("/");
     }
   };
 
@@ -45,11 +48,12 @@ function Header() {
             </span>
           </div>
         </Link>
-
-        <div className="header_option">
-          <span className="header_optionLineOne">Returns</span>
-          <span className="header_optionLineTwo">& Orders</span>
-        </div>
+        <Link to="/orders">
+          <div className="header_option">
+            <span className="header_optionLineOne">Returns</span>
+            <span className="header_optionLineTwo">& Orders</span>
+          </div>
+        </Link>
 
         {/* <div className="header_option">
           <span className="header_optionLineOne">Your</span>

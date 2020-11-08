@@ -26,3 +26,26 @@
 .payment_detail {
   flex: 0.8;
 }
+
+.payment_detail > h4 {
+  padding-bottom: 20px;
+}
+
+.payment_priceContainer {
+  margin-top: 10px;
+}
+
+.payment_priceContainer > button {
+  background: #f0c14b;
+  border-radius: 2px;
+  width: 100%;
+  height: 30px;
+  border: 1px solid;
+  color: #111;
+  margin-top: 10px;
+  border-color: #a88734 #9c7e31 #846a29;
+  max-width: 400px;
+}
+
+.payment_paybutton {
+}

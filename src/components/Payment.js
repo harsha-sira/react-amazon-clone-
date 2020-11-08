@@ -5,9 +5,10 @@ import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "../common/StateProvider";
 import "../css/Payment.css";
 import CheckoutProduct from "./CheckoutProduct";
-import { getBasketTotal } from "../common/Reducer";
+import { getBasketTotal, getBasketTotalforPayment } from "../common/Reducer";
 // import axios from "axios";
 import axios from "../firebase/axios";
+import { db } from "../firebase/firebaseConfig";
 
 function Payment() {
   const history = useHistory();
@@ -15,9 +16,9 @@ function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
-  const [processing, setProcessing] = useState("");
+  const [processing, setProcessing] = useState(false);
   const [succeeded, setSucceeded] = useState(false);
-  const [clientSecret, setClientSecret] = useState(true);
+  const [clientSecret, setClientSecret] = useState("");
 
   const stripe = useStripe();
   const elements = useElements();
@@ -27,7 +28,7 @@ function Payment() {
       const response = await axios({
         method: "post",
         //stripe expects the total in a currencies subunits
-        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+        url: `/payments/create?total=${getBasketTotalforPayment(basket)}`,
       });
       setClientSecret(response.data.clientSecret);
     };
@@ -54,6 +55,17 @@ function Payment() {
       })
       .then(({ paymentIntent }) => {
         //payment Intent = payment confirmation
+
+        db.collection("users")
+          .doc(user?.uid)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
+
         setSucceeded(true);
         setError(null);
         setProcessing(false);
@@ -116,11 +128,9 @@ function Payment() {
               <div className="payment_priceContainer">
                 <CurrencyFormat
                   renderText={(value) => (
-                    <>
-                      <p>
-                        Order total: <strong>{value}</strong>
-                      </p>
-                    </>
+                    <h4>
+                      Order total: <strong>{value}</strong>
+                    </h4>
                   )}
                   value={getBasketTotal(basket)}
                   displayType={"text"}
